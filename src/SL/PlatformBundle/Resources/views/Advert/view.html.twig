@@ -1,0 +1,9 @@
+<html>
+    <body>
+        <h1>{{ advert.title }}</h1>
+        <div>
+            <p>Par {{ advert.author }} le {{ advert.date|date("m/d/Y") }}</p>
+            <p> {{ advert.content }} </p>
+        </div>
+    </body>
+</html>
