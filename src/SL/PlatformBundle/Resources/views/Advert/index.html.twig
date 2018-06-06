@@ -9,8 +9,10 @@
                 <p> {{ advert.content }} </p>
             </div>
             <div>
-                <a href="{{ path('sl_platform_edit', {'id': advert.id}) }}" >Modifier</a> 
-                <a href="{{ path('sl_platform_delete', {'id': advert.id}) }}" >Supprimer</a> 
+                <a href="{{ path('sl_platform_edit', {'id': advert.id}) }}" >Modifier</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('sl_platform_delete', {'id': advert.id}) }}" >Supprimer</a> 
+                {% endif %}
             </div>
         {% endfor %}
     </body>

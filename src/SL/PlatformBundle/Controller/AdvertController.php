@@ -7,6 +7,7 @@ use SL\PlatformBundle\Entity\Advert;
 use SL\PlatformBundle\Form\AdvertType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class AdvertController extends Controller {
 
@@ -20,6 +21,9 @@ class AdvertController extends Controller {
         ));
     }
 
+    /**
+   * @Security("has_role('ROLE_ADMIN')")
+   */
     public function addAction(Request $request) {
         $advert = new Advert();
         $form = $this->createForm(AdvertType::class, $advert);
