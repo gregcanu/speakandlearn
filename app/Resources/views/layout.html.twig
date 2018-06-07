@@ -1,0 +1,83 @@
+{# app/Resources/views/layout.html.twig #}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>{% block title %}Speak & Learn{% endblock %}</title>
+
+        {% block stylesheets %}
+            {# On charge le CSS de bootstrap depuis le site directement #}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ asset('bundles/slplatform/css/main.css') }}" type="text/css" />
+        {% endblock %}
+    </head>
+
+    <body>
+        {# Sidebar #}
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="#">Speak and Learn</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Accueil<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('sl_platform_home') }}">Annonces</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('sl_platform_add') }}">Ajouter une annonce</a>
+                    </li>
+                </ul>
+                <form class="form-inline mt-2 mt-md-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+        {# Fin Sidebar #}
+
+        {# Menu latéral #}
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                    <div class="sidebar-sticky">
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>Dernières annonces</span>
+                        </h6>
+                        {{ render(controller("SLPlatformBundle:Advert:menu", {'limit': 3})) }}
+                    </div>
+                </nav>
+                {# Fin Menu latéral #}
+
+                <div class="container">
+                    <div id="header" class="jumbotron">
+                        <h1>Plateforme des annonces</h1>
+                    </div>
+                    <div class="row">
+                        <div id="content" class="col-md-9">
+                            {% block body %}
+                            {% endblock %}
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <footer style="text-align:center;">
+                        <p>Speak and Learn © {{ 'now'|date('Y') }} and beyond.</p>
+                    </footer>
+                </div>
+
+                {% block javascripts %}
+                    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
+                    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+                    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+                {% endblock %}
+
+                </body>
+                </html>

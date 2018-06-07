@@ -21,9 +21,6 @@ class AdvertController extends Controller {
         ));
     }
 
-    /**
-   * @Security("has_role('ROLE_ADMIN')")
-   */
     public function addAction(Request $request) {
         $advert = new Advert();
         $form = $this->createForm(AdvertType::class, $advert);
@@ -55,6 +52,9 @@ class AdvertController extends Controller {
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function editAction(Request $request, $id) {
         $em = $this->getDoctrine()->getEntityManager();
         $advert = $em->getRepository('SLPlatformBundle:Advert')->find($id);
@@ -98,6 +98,15 @@ class AdvertController extends Controller {
         return $this->render('SLPlatformBundle:Advert:delete.html.twig', array(
                     'form' => $form->createView(),
                     'advert' => $advert
+        ));
+    }
+
+    public function menuAction($limit) {
+        $em = $this->getDoctrine()->getEntityManager();
+        $listAdverts = $em->getRepository("SLPlatformBundle:Advert")->getAdvertsWithLimit($limit);
+        
+        return $this->render('SLPlatformBundle:Advert:menu.html.twig', array(
+                    'listAdverts' => $listAdverts
         ));
     }
 

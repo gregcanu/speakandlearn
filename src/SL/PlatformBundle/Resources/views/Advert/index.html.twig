@@ -1,19 +1,18 @@
-<html>
-    <body>
-        <h1>Liste des annonces</h1>
-        Page de visualisation des annonces
+{% extends "SLPlatformBundle::layout.html.twig" %}
 
-        {% for advert in adverts %}
-            <div>
-                <p> <a href="{{ path('sl_platform_view', {'id': advert.id}) }}" >{{ advert.title }}</a> par {{ advert.author }} le {{ advert.date|date("m/d/Y") }}</p>
-                <p> {{ advert.content }} </p>
-            </div>
-            <div>
-                <a href="{{ path('sl_platform_edit', {'id': advert.id}) }}" >Modifier</a>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('sl_platform_delete', {'id': advert.id}) }}" >Supprimer</a> 
-                {% endif %}
-            </div>
-        {% endfor %}
-    </body>
-</html>
+{% block title %}{{ parent() }} - Index{% endblock %}
+{% block body %}
+    <h1>Liste des annonces</h1>
+    {% for advert in adverts %}
+        <div>
+            <p> <a href="{{ path('sl_platform_view', {'id': advert.id}) }}" >{{ advert.title }}</a> par {{ advert.author }} le {{ advert.date|date("m/d/Y") }}</p>
+            <p> {{ advert.content }} </p>
+        </div>
+        <div>
+            <a href="{{ path('sl_platform_edit', {'id': advert.id}) }}" >Modifier</a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('sl_platform_delete', {'id': advert.id}) }}" >Supprimer</a> 
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}

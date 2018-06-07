@@ -1,8 +1,7 @@
-<html>
-    <body>
-        <h1>Modifier une annonce</h1>
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
-    </body>
-</html>
+{% extends "SLPlatformBundle::layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Index{% endblock %}
+{% block body %}
+    <h1>Modifier une annonce</h1>
+    {{ include("SLPlatformBundle:Advert:form.html.twig") }}
+{% endblock %}
