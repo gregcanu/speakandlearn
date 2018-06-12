@@ -4,7 +4,9 @@ namespace SL\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use SL\PlatformBundle\Entity\Advert;
+use SL\PlatformBundle\Entity\AdvertLanguage;
 use SL\PlatformBundle\Form\AdvertType;
+use SL\PlatformBundle\Form\AdvertLanguageType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -107,6 +109,24 @@ class AdvertController extends Controller {
         
         return $this->render('SLPlatformBundle:Advert:menu.html.twig', array(
                     'listAdverts' => $listAdverts
+        ));
+    }
+    
+    public function testAction(Request $request) {
+        $advertLanguage = new AdvertLanguage();
+        $form = $this->createForm(AdvertLanguageType::class, $advertLanguage);
+
+//            var_dump($request->request);die();
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($advertLanguage);
+            $em->flush();
+
+            return $this->redirectToRoute('sl_platform_test', array('id' => $advertLanguage->getId()));
+        }
+
+        return $this->render('SLPlatformBundle:Advert:test.html.twig', array(
+                    'form' => $form->createView()
         ));
     }
 

@@ -30,3 +30,8 @@ sl_platform_delete:
         _controller: SLPlatformBundle:Advert:delete
     requirements:
         id: \d+
+        
+sl_platform_test:
+    path:      /test
+    defaults:
+        _controller: SLPlatformBundle:Advert:test

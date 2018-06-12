@@ -49,7 +49,7 @@ class Advert
      */
     private $content;
 
-
+    
     /**
      * Get id
      *
